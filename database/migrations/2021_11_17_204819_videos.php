@@ -18,6 +18,7 @@ class Videos extends Migration
             $table->string('nombre');
             $table->string('descripcion');
             $table->string('url');
+            $table->string('image');
             $table->bigInteger('likes');
             $table->bigInteger('dislikes');
             $table->string('categoria');

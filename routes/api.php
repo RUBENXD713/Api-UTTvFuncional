@@ -20,25 +20,76 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //metodos para Usuario
 
-Route::middleware('auth:sanctum')->delete('LogOut','usuarioController@LogOut');
-Route::middleware('auth:sanctum')->get('Perfil','usuarioController@index');
 
-Route::post('Registro','usuarioController@Registro');
-Route::post('Login','usuarioController@LogIn');
+Route::middleware('auth:sanctum')->delete('/us/LogOut','usuarioController@LogOut');
+Route::middleware('auth:sanctum')->get('/us/Perfil','usuarioController@perfil');
+Route::middleware('auth:sanctum')->get('/us/index','usuarioController@index');
+Route::post('/us/Registro','usuarioController@Registro');
+Route::middleware('auth:sanctum')->put('/us/Actualizar','usuarioController@actualizar');
+Route::middleware('auth:sanctum')->delete('/us/eliminar','usuarioController@drop');
+Route::middleware('auth:sanctum')->get('/us/getOne','usuarioController@getOne');
 
-Route::put('Actualizar','usuarioController@actualizar')->middleware('admin');
 
+Route::post('/us/login','usuarioController@LogIn');
+Route::middleware('auth:sanctum')->post('/us/login2','usuarioController@login2');
+Route::middleware('auth:sanctum')->post('/us/login3','usuarioController@login3');
+
+
+Route::middleware('auth:sanctum')->post('/us/solicitarPermiso','usuarioController@solicitarPermiso');
+Route::middleware('auth:sanctum')->post('/us/generarCodigo','usuarioController@generarCodigo');
+Route::delete('/us/eliminarCodigo','usuarioController@eliminarCodigo');
+Route::middleware('auth:sanctum')->post('/us/permisoNuevo','usuarioController@permiso');
+Route::middleware('auth:sanctum')->get('/us/getPeticiones','usuarioController@getPeticiones');
 
 //metodos para videos
 
-Route::middleware('auth:sanctum')->get('index','videoController@getVideos');
 
-Route::middleware('auth:sanctum')->get('video','videoController@video');
+Route::get('/vi/index','videoController@getVideos');
+Route::get('/vi/index/id','videoController@getVideo');
+Route::middleware('auth:sanctum')->delete('/vi/eliminar','videoController@drop');
+Route::middleware('auth:sanctum')->put('/vi/actualizar','videoController@actualizar');
+Route::middleware('auth:sanctum')->post('/vi/nuevo','videoController@nuevo');
 
-Route::middleware('auth:sanctum')->post('nuevo','videoController@nuevo');
 
-Route::middleware('auth:sanctum')->put('like','videoController@likeVideo');
+Route::middleware('auth:sanctum')->get('/vi/carrera','videoController@carrera');
 
-Route::middleware('auth:sanctum')->put('dislike','videoController@disLikeVideo');
 
-Route::middleware('auth:sanctum')->get('buscador','videoController@buscador');
+Route::get('/vi/video','videoController@video');
+Route::put('/vi/like','videoController@likeVideo');
+Route::put('/vi/dislike','videoController@disLikeVideo');
+Route::get('/vi/buscador','videoController@buscador');
+
+
+//metodos para carreras
+
+
+Route::get('/car/index','carreraController@getAll');
+Route::get('/car/index/id','carreraController@getOne');
+Route::middleware('auth:sanctum')->delete('/car/drop','carreraController@delete');
+Route::middleware('auth:sanctum')->put('/car/update','carreraController@update');
+Route::middleware('auth:sanctum')->post('/car/new','carreraController@new');
+
+
+//metodos para categorias
+
+
+Route::get('/cat/index','categoriaController@getAll');
+Route::get('/cat/index/id','categoriaController@getOne');
+Route::middleware('auth:sanctum')->delete('/cat/drop','categoriaController@delete');
+Route::middleware('auth:sanctum')->put('/cat/update','categoriaController@update');
+Route::middleware('auth:sanctum')->post('/cat/new','categoriaController@new');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

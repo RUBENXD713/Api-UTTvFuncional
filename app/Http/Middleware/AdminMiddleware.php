@@ -17,7 +17,7 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         //$db=User::where('email',$request->email)->first();
-        if(/*$db->tipo=='1',*/tokenCan('admin:admin'))
+        if($request->user()->tokenCan('admin:admin'))
         {
             log("si entro al middleware");
             return $next($request);
