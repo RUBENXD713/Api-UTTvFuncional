@@ -29,7 +29,7 @@ class videoController extends Controller
             return response()->json('no tienes permiso');
         }
 
-        if(!$user2->tipo == 2){
+        if($user2->tipo != 2){
             $user2->permiso=0;
             $user2->save();
         }
@@ -61,7 +61,7 @@ class videoController extends Controller
             return response()->json('no tienes permiso');
         }
 
-        if(!$user2->tipo == 2){
+        if($user2->tipo != 2){
             $user2->permiso=0;
             $user2->save();
         }
@@ -158,7 +158,7 @@ class videoController extends Controller
             return response()->json('no tienes permiso');
         }
 
-        if(!$user2->tipo == 2){
+        if($user2->tipo != 2){
             $user2->permiso=0;
             $user2->save();
         }

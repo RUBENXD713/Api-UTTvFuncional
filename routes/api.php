@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum')->post('/us/login2','usuarioController@login2')
 Route::middleware('auth:sanctum')->post('/us/login3','usuarioController@login3');
 
 
-Route::middleware('auth:sanctum')->post('/us/solicitarPermiso','usuarioController@solicitarPermiso');
+Route::post('/us/solicitarPermiso','usuarioController@solicitarPermiso');
 Route::middleware('auth:sanctum')->post('/us/generarCodigo','usuarioController@generarCodigo');
 Route::delete('/us/eliminarCodigo','usuarioController@eliminarCodigo');
 Route::middleware('auth:sanctum')->post('/us/permisoNuevo','usuarioController@permiso');

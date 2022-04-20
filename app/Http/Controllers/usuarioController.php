@@ -149,15 +149,17 @@ class usuarioController extends Controller
 
 
     public function solicitarPermiso(Request $request){
-        $user2=$request->user();
-        if(DB::table('peticiones')->where('user','=',$user2->id)->delete()){
-            //echo('eliminado');
+        //$user2=$request->user();
+        if($request->tipo == 2){
+            return response()->json('Los administradores no deben solicitar permisos');
         }
-        if($user2->tipo != 2){
-            DB::insert('insert into peticiones (user) values (?)', [$user2->id]);
-            return response()->json('Solicitud enviada');
+
+        if(DB::table('peticiones')->where('user','=',$request->id)->delete()){
+            //echo ('eliminado');
         }
-        return response()->json('Los administradores no deben generar codigos');
+        DB::insert('insert into peticiones (user) values (?)', [$request->id]);
+        return response()->json('Solicitud enviada');
+        
     }
 
 
