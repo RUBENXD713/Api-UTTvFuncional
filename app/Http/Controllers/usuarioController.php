@@ -27,7 +27,7 @@ class usuarioController extends Controller
         $user=User::where('email',$request->email)->first();
 
         if(!$user || !Hash::check($request->password, $user->password)){
-            return response()->json("datos incorrectos");
+            return response()->json("datos incorrectos",401);
         }
 
         $user2=User::where('email',$request->email)->first();
@@ -66,8 +66,9 @@ class usuarioController extends Controller
             Mail::to($user->email)->send(new codigoAccesomail($code));
             
         }
-        return response()->json(["token"=>$token],201);
+        return response()->json(["token"=>$token]);
     }
+
     
 
 
@@ -231,6 +232,40 @@ class usuarioController extends Controller
     {
          return response()->json(['Perfil'=>$request->user()],200);
     }
+
+
+
+
+
+    public function perfilAndroid(Request $request)
+    {
+         return $request->user();
+    }
+
+    
+
+    public function loginAndorid(Request $request)
+    {
+        $request->validate([
+            'email'=>'required|email',
+            'password'=>'required',
+        ]);
+        $user=User::where('email',$request->email)->first();
+
+        if(!$user || !Hash::check($request->password, $user->password)){
+            return response()->json("datos incorrectos",401);
+        }
+            $token=$user->createToken($request->email, ['user:user'])->plainTextToken;
+            $user->m2=0;
+            $user->m3=0;
+            $user->permiso=1;  
+            $user->save();
+        return response()->json(["token"=>$token]);
+    }
+
+
+
+
 
 
     public function index(Request $request)

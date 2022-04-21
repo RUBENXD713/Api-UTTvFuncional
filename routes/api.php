@@ -30,6 +30,10 @@ Route::middleware('auth:sanctum')->delete('/us/eliminar','usuarioController@drop
 Route::middleware('auth:sanctum')->get('/us/getOne','usuarioController@getOne');
 
 
+Route::middleware('auth:sanctum')->get('/us/perfilAndroid','usuarioController@perfilAndroid');
+
+
+Route::post('/us/loginAndorid','usuarioController@loginAndorid');
 Route::post('/us/login','usuarioController@LogIn');
 Route::middleware('auth:sanctum')->post('/us/login2','usuarioController@login2');
 Route::middleware('auth:sanctum')->post('/us/login3','usuarioController@login3');
