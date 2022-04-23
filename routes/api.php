@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //metodos para Usuario
 
+Route::get('evento','usuarioController@event');
+
 
 Route::middleware('auth:sanctum')->delete('/us/LogOut','usuarioController@LogOut');
 Route::middleware('auth:sanctum')->get('/us/Perfil','usuarioController@perfil');

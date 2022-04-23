@@ -12,9 +12,11 @@ use App\Peticion;
 use Illuminate\Support\Facades\Hash;
 use Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Arr;
 use App\Mail\codigoAccesomail;
 use App\Mail\permisoSolicitado;
+use App\Events\socketValidate;
 
 class usuarioController extends Controller
 {
@@ -69,6 +71,11 @@ class usuarioController extends Controller
         return response()->json(["token"=>$token]);
     }
 
+
+
+    public function event(){
+        event(new socketValidate('Actualizacion'));
+    }
     
 
 
@@ -98,12 +105,13 @@ class usuarioController extends Controller
     public function login3(Request $request)
     {
         $user2=$request->user();
-        if($user2->permiso != 2){
+        if($user2->tipo != 2){
             return response()->json('no tienes permiso');
         }
         $user2->m3=1; 
         $user2->permiso=1; 
         $user2->save();
+        event(new socketValidate('Actualizacion'));
         return response()->json('continua');
     }
 
@@ -256,7 +264,7 @@ class usuarioController extends Controller
             return response()->json("datos incorrectos",401);
         }
             $token=$user->createToken($request->email, ['user:user'])->plainTextToken;
-            $user->m2=0;
+            $user->m2=1;
             $user->m3=0;
             $user->permiso=1;  
             $user->save();
