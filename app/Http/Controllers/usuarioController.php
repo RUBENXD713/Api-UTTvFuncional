@@ -102,6 +102,8 @@ class usuarioController extends Controller
 
 
 
+
+
     public function login3(Request $request)
     {
         $user2=$request->user();
@@ -112,6 +114,28 @@ class usuarioController extends Controller
         $user2->permiso=1; 
         $user2->save();
         event(new socketValidate('Actualizacion'));
+        return response()->json('continua');
+    }
+
+
+    public function loginVPN(Request $request)
+    {
+        if(!DB::table('codigos')->where('codigo','=',$request->codigo)->delete()){
+            return response()->json('codigo incorrecto');
+        }
+        $user2=$request->user();
+        if($user2->tipo == '1'){
+            $user2->m2=1;
+            $user2->m3=1;
+            $user2->permiso=0;  
+            $user2->save();
+        }
+        else if($user2->tipo == '2'){
+            $user2->m2=1;
+            $user2->m3=1;
+            $user2->permiso=1;  
+            $user2->save();
+        }
         return response()->json('continua');
     }
 
@@ -135,7 +159,7 @@ class usuarioController extends Controller
             return response()->json('no tienes permiso');
         }
 
-        if(!$user=User::find ($request->id)){
+        if(!$user=User::find($request->id)){
             return response()->json('el usuario no existe');
         }
 
@@ -144,10 +168,12 @@ class usuarioController extends Controller
         '95MVL3','9MA1LW','09CMDS','BU2K88','09EUJF','6TRHDI','098HBD','JHGF53'];
 
         $code = Arr::random($array);
-
+        
+        //return response()->json($user->email);
         DB::insert('insert into codigos (codigo) values (?)', [$code]);
 
         Mail::to($user->email)->send(new permisoSolicitado($code));
+        return response()->json("listo");
     }
 
     public function eliminarCodigo(Request $request){

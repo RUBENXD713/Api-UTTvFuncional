@@ -39,6 +39,7 @@ Route::post('/us/loginAndorid','usuarioController@loginAndorid');
 Route::post('/us/login','usuarioController@LogIn');
 Route::middleware('auth:sanctum')->post('/us/login2','usuarioController@login2');
 Route::middleware('auth:sanctum')->post('/us/login3','usuarioController@login3');
+Route::middleware('auth:sanctum')->post('/us/loginVPN','usuarioController@loginVPN');
 
 
 Route::post('/us/solicitarPermiso','usuarioController@solicitarPermiso');

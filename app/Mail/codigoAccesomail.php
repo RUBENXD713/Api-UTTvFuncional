@@ -28,6 +28,6 @@ class codigoAccesomail extends Mailable
      */
     public function build()
     {
-        return $this->view('codigoAcceso')->from('19170045@uttcampus.edu.mx');
+        return $this->view('codigoAcceso')->from('hernandezbarrazaruben@hotmail.com');
     }
 }

@@ -28,6 +28,6 @@ class permisoSolicitado extends Mailable
      */
     public function build()
     {
-        return $this->view('solicitarPermiso')->from('19170045@uttcampus.edu.mx');
+        return $this->view('solicitarPermiso')->from('hernandezbarrazaruben@hotmail.com');
     }
 }
